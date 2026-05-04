@@ -6,7 +6,7 @@
 <title>Harsit Chavda — Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
 
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,14 +24,14 @@
     --grain-opacity: 0.035;
   }
 
-  html { scroll-behavior: smooth; overflow: hidden; height: 100%; }
+  html { scroll-behavior: smooth; }
 
   body {
     background: var(--navy);
     color: var(--white);
     font-family: 'DM Sans', sans-serif;
-    height: 100%;
-    overflow: hidden;
+    min-height: 100vh;
+    overflow-x: hidden;
     cursor: none;
   }
 
@@ -130,10 +130,10 @@
   }
 
   .nav-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-weight: 400;
-    font-size: 1.35rem;
-    letter-spacing: 0.12em;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
     color: var(--white);
     text-decoration: none;
     position: relative;
@@ -257,14 +257,14 @@
 
   /* Name */
   .hero-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-weight: 400;
-    font-size: clamp(3.8rem, 12vw, 10rem);
-    line-height: 0.92;
-    letter-spacing: 0.06em;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(3.2rem, 10vw, 8.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
     color: var(--white);
     opacity: 0;
-    animation: rise 0.9s 0.2s ease forwards;
+    animation: rise 0.9s 0.4s ease forwards;
     position: relative;
   }
   .hero-name-gradient {
@@ -277,30 +277,17 @@
   /* Tagline */
   .hero-tagline {
     margin-top: 24px;
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-style: italic;
-    font-size: clamp(1.3rem, 3.5vw, 2.4rem);
-    letter-spacing: 0.03em;
-    color: rgba(200,195,240,0.82);
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.1rem, 3vw, 2rem);
+    letter-spacing: 0.01em;
+    color: rgba(200,195,240,0.75);
     opacity: 0;
     animation: rise 0.9s 0.6s ease forwards;
   }
   .tagline-line {
     display: inline-block;
     position: relative;
-  }
-  /* Mixed style spans inside tagline */
-  .tagline-line .t-bold {
-    font-weight: 700;
-    font-style: normal;
-    color: var(--white);
-  }
-  .tagline-line .t-accent {
-    font-weight: 600;
-    font-style: italic;
-    color: var(--accent);
-    letter-spacing: 0.05em;
   }
   .tagline-line::after {
     content: '';
@@ -457,12 +444,17 @@
 <!-- ── HERO ───────────────────────────────────────────────────── -->
 <section class="hero">
 
+  <div class="eyebrow">
+    <span class="eyebrow-dot"></span>
+    Open to opportunities
+  </div>
 
+  <h1 class="hero-name">
     <span class="hero-name-gradient">Harsit Chavda</span>
   </h1>
 
   <p class="hero-tagline">
-    <span class="tagline-line"><span class="t-bold">Turning</span> data into <span class="t-accent">decisions</span></span>
+    <span class="tagline-line">Turning data into decisions</span>
   </p>
 
   <p class="hero-desc">
@@ -484,7 +476,11 @@
     </a>
   </div>
 
-
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
 
 <script>
 /* ── CUSTOM CURSOR ─────────────────────────────────────────────── */
