@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Harsit Chavda — Journey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,400;1,600;1,800&family=Cormorant+Garamond:ital,wght@1,300;1,400;1,500;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --navy:#050a18;
+  --deep:#080d1f;
+  --card-bg:#070c1c;
+  --card-border:rgba(124,111,255,0.13);
+  --accent:#7c6fff;
+  --blue:#60a5fa;
+  --pink:#c084fc;
+  --white:#f0eeff;
+  --off-white:#eaeaea;
+  --muted:rgba(200,195,240,0.48);
+  --gray:#a0a0b8;
+  --grain-op:0.032;
+  --node:52px;
+  --gap:28px;
+}
+
+html{scroll-behavior:smooth}
+html,body{background:var(--navy);color:var(--white);font-family:'Outfit',sans-serif;min-height:100vh;overflow-x:hidden;cursor:none}
+::-webkit-scrollbar{display:none}
+body{-ms-overflow-style:none;scrollbar-width:none}
+
+/* ── GRAIN ──────────────────────────────── */
+#grain{
+  position:fixed;inset:0;pointer-events:none;z-index:300;opacity:var(--grain-op);
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:180px;animation:grain .5s steps(1) infinite;
+}
+@keyframes grain{
+  0%{transform:translate(0,0)}  20%{transform:translate(-5%,3%)}
+  40%{transform:translate(3%,-4%)} 60%{transform:translate(-3%,5%)}
+  80%{transform:translate(4%,-2%)} 100%{transform:translate(0,0)}
+}
+
+/* ── CURSOR ─────────────────────────────── */
+#cursor-orb{
+  position:fixed;width:12px;height:12px;border-radius:50%;
+  background:radial-gradient(circle,#fff 0%,var(--accent) 60%,transparent 100%);
+  box-shadow:0 0 10px 4px rgba(124,111,255,.6),0 0 24px 8px rgba(124,111,255,.2);
+  pointer-events:none;z-index:9999;transform:translate(-50%,-50%);
+  transition:width .2s,height .2s,box-shadow .2s;
+}
+#cursor-trail{
+  position:fixed;width:28px;height:28px;border-radius:50%;
+  border:1px solid rgba(124,111,255,.3);background:rgba(124,111,255,.04);
+  pointer-events:none;z-index:9998;transform:translate(-50%,-50%);
+  transition:width .25s,height .25s,opacity .4s;
+}
+
+/* ── BLOBS ──────────────────────────────── */
+.blob{position:fixed;border-radius:50%;filter:blur(90px);opacity:.09;pointer-events:none;z-index:0}
+.blob-1{width:500px;height:500px;background:#2d2070;top:-120px;left:-80px;animation:bd 22s ease-in-out infinite alternate}
+.blob-2{width:300px;height:300px;background:#5e2baa;bottom:-60px;right:-60px;animation:bd 28s ease-in-out infinite alternate-reverse}
+.blob-3{width:220px;height:220px;background:#1a1560;top:50%;left:60%;animation:bd 18s ease-in-out infinite alternate}
+@keyframes bd{from{transform:translate(0,0) scale(1)}to{transform:translate(26px,18px) scale(1.07)}}
+
+/* ── NAVBAR ─────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(24px,6vw,72px);height:68px;
+  background:rgba(5,10,24,.55);
+  backdrop-filter:blur(18px) saturate(1.4);
+  -webkit-backdrop-filter:blur(18px) saturate(1.4);
+  border-bottom:1px solid rgba(124,111,255,.08);
+  transition:background .4s,box-shadow .4s,border-color .4s;
+}
+nav.scrolled{background:rgba(5,10,24,.92);box-shadow:0 8px 40px rgba(0,0,0,.45);border-color:rgba(124,111,255,.15)}
+.nav-logo{
+  font-family:'ClashDisplay','Clash Display',sans-serif;
+  font-weight:600;font-size:1.05rem;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--white);text-decoration:none;position:relative;
+}
+.nav-logo::after{
+  content:'';position:absolute;bottom:-2px;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,var(--accent),transparent);
+  transform:scaleX(0);transform-origin:left;transition:transform .35s;
+}
+.nav-logo:hover::after{transform:scaleX(1)}
+.nav-links{display:flex;gap:clamp(20px,3vw,40px);list-style:none}
+.nav-links a{
+  font-family:'Outfit',sans-serif;font-size:.78rem;font-weight:400;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+  text-decoration:none;position:relative;transition:color .25s;
+}
+.nav-links a.active,.nav-links a:hover{color:var(--white)}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;
+  background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .3s;
+}
+.nav-links a.active::after,.nav-links a:hover::after{transform:scaleX(1)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--white);border-radius:2px;transition:transform .3s,opacity .3s}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.mobile-menu{
+  display:none;position:fixed;top:68px;left:0;right:0;
+  background:rgba(5,10,24,.97);backdrop-filter:blur(20px);
+  padding:24px clamp(24px,6vw,72px);flex-direction:column;gap:20px;
+  border-bottom:1px solid rgba(124,111,255,.1);z-index:99;
+  opacity:0;transform:translateY(-8px);transition:transform .35s,opacity .35s;
+}
+.mobile-menu.open{display:flex;opacity:1;transform:translateY(0)}
+.mobile-menu a{font-family:'Outfit',sans-serif;font-size:1rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.mobile-menu a:hover{color:var(--white)}
+
+/* ── PAGE ───────────────────────────────── */
+.page{position:relative;z-index:10;padding-top:68px;min-height:100vh}
+
+/* ── SECTION ────────────────────────────── */
+.journey{max-width:1160px;margin:0 auto;padding:clamp(60px,10vh,110px) clamp(20px,5vw,60px)}
+
+.section-head{text-align:center;margin-bottom:clamp(56px,9vh,96px);opacity:0;animation:rise .9s .1s ease forwards}
+.section-label{font-family:'Outfit',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:12px}
+.section-title{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(2.4rem,5vw,4rem);line-height:1;letter-spacing:-.02em;color:var(--white)}
+.section-title .italic-word{font-style:italic;font-weight:600;background:linear-gradient(120deg,#d4cfff 0%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.section-subtitle{margin-top:12px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1rem,1.8vw,1.25rem);color:var(--gray)}
+.divider{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);margin:18px auto 0;opacity:.6}
+
+/* ═══════════════════════════════════════════════
+   TIMELINE LAYOUT
+   ───────────────────────────────────────────────
+   .tl-outer  — relative wrapper; holds the line
+     .tl-line — absolute centre line
+     .tl-row  — flex row (one per semester)
+       .tl-side.left   — left half (card or empty)
+       .tl-centre      — node column (fixed width)
+       .tl-side.right  — right half (card or empty)
+
+   S1 → card LEFT,  empty RIGHT
+   S2 → empty LEFT, card RIGHT
+   S3 → card LEFT,  empty RIGHT
+   S4 → empty LEFT, card RIGHT
+
+   Each .tl-row is only as tall as its card.
+   The absolute line spans the full height of .tl-outer.
+═══════════════════════════════════════════════ */
+
+.tl-outer{position:relative}
+
+/* ── Centre gradient line ── */
+.tl-line{
+  position:absolute;
+  left:50%;top:0;bottom:0;
+  transform:translateX(-50%);
+  width:2px;
+  background:linear-gradient(to bottom,var(--blue) 0%,var(--accent) 50%,var(--pink) 100%);
+  border-radius:2px;
+  z-index:0;
+  overflow:hidden;
+}
+.tl-line::after{
+  content:'';position:absolute;left:0;right:0;height:120px;
+  background:linear-gradient(to bottom,transparent,rgba(255,255,255,.95),transparent);
+  animation:lshine 4s ease-in-out infinite;
+}
+@keyframes lshine{
+  0%  {top:-120px;opacity:0}
+  8%  {opacity:1}
+  92% {opacity:1}
+  100%{top:100%;opacity:0}
+}
+
+/* ── Each row ── */
+.tl-row{
+  position:relative;z-index:2;
+  display:flex;
+  align-items:flex-start;
+  margin-bottom:clamp(28px,5vh,56px);
+}
+.tl-row:last-child{margin-bottom:0}
+
+/* ── Left / right halves ── */
+.tl-side{
+  flex:1;
+  min-width:0;
+}
+.tl-side.left{
+  padding-right:var(--gap);
+  display:flex;justify-content:flex-end;
+}
+.tl-side.right{
+  padding-left:var(--gap);
+  display:flex;justify-content:flex-start;
+}
+.tl-side.empty{
+  /* blank space — no card */
+}
+
+/* ── Centre column ── */
+.tl-centre{
+  flex:0 0 var(--node);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding-top:14px;
+  position:relative;
+  z-index:3;
+}
+
+/* Horizontal connector line from node to card */
+.tl-connector{
+  position:absolute;
+  top:calc(14px + var(--node) / 2);   /* centred on node */
+  height:1px;
+  width:var(--gap);
+  pointer-events:none;
+}
+.tl-connector.to-left{
+  right:100%;
+  background:linear-gradient(to left,rgba(124,111,255,.55),rgba(124,111,255,.05));
+}
+.tl-connector.to-right{
+  left:100%;
+  background:linear-gradient(to right,rgba(124,111,255,.55),rgba(124,111,255,.05));
+}
+
+/* ── Node circle ── */
+.tl-node{
+  width:var(--node);height:var(--node);border-radius:50%;
+  background:var(--deep);position:relative;flex-shrink:0;
+  transition:transform .3s,box-shadow .3s;
+  animation:npulse 3s ease-in-out infinite;
+}
+.tl-node::before{
+  content:'';position:absolute;inset:-2px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--accent),var(--pink));
+  z-index:-1;
+}
+.tl-node::after{
+  content:'';position:absolute;inset:3px;border-radius:50%;
+  background:var(--deep);z-index:0;
+}
+.tl-node:hover{
+  transform:scale(1.12);
+  box-shadow:0 0 20px 6px rgba(124,111,255,.38),0 0 42px 12px rgba(124,111,255,.16);
+}
+@keyframes npulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(124,111,255,.35)}
+  50%    {box-shadow:0 0 14px 5px rgba(124,111,255,.22),0 0 28px 8px rgba(124,111,255,.1)}
+}
+.node-inner{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center}
+.node-num{
+  font-family:'ClashDisplay','Clash Display',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.04em;
+  background:linear-gradient(135deg,#c8c0ff,var(--accent));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+/* ── Card ── */
+.tl-card{
+  width:100%;max-width:430px;
+  background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;
+  padding:22px 24px;position:relative;overflow:hidden;
+  backdrop-filter:blur(10px);
+  transition:border-color .35s,box-shadow .35s,transform .35s;
+}
+.tl-card::before{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  background:linear-gradient(135deg,rgba(124,111,255,.04) 0%,transparent 60%);
+  pointer-events:none;
+}
+.tl-card:hover{
+  border-color:rgba(124,111,255,.32);
+  box-shadow:0 8px 40px rgba(124,111,255,.11),0 2px 14px rgba(0,0,0,.4);
+  transform:translateY(-3px);
+}
+.card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px}
+.card-title{font-family:'Playfair Display',serif;font-weight:800;font-size:1.08rem;line-height:1.2;color:var(--white);letter-spacing:-.01em}
+.card-title .num-italic{font-style:italic;font-weight:600}
+.status-pill{
+  flex-shrink:0;font-family:'Outfit',sans-serif;font-size:.62rem;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:100px;
+  background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.24);color:var(--blue);white-space:nowrap;
+}
+.card-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.9rem;color:var(--gray);margin-bottom:13px}
+.grades{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}
+.grade-chip{
+  font-family:'Outfit',sans-serif;font-size:.74rem;font-weight:500;
+  padding:4px 11px;border-radius:8px;
+  background:rgba(124,111,255,.08);border:1px solid rgba(124,111,255,.2);color:rgba(200,195,255,.72);
+}
+.grade-chip span{color:var(--white);font-weight:600}
+
+/* expand button */
+.expand-btn{
+  display:flex;align-items:center;gap:7px;width:100%;
+  background:none;border:none;cursor:pointer;
+  font-family:'Outfit',sans-serif;font-size:.78rem;font-weight:500;
+  letter-spacing:.04em;color:var(--accent);padding:5px 0;transition:color .2s;
+}
+.expand-btn:hover{color:var(--white)}
+.btn-icon{
+  width:18px;height:18px;border-radius:50%;flex-shrink:0;
+  border:1px solid rgba(124,111,255,.4);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .35s,background .25s;
+}
+.expand-btn.open .btn-icon{transform:rotate(45deg);background:rgba(124,111,255,.14)}
+.btn-icon svg{width:9px;height:9px;fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linecap:round}
+
+/* accordion */
+.accordion{overflow:hidden;max-height:0;opacity:0;transition:max-height .55s cubic-bezier(.4,0,.2,1),opacity .4s ease}
+.accordion.open{opacity:1}
+.subjects-list{margin-top:13px;padding-top:13px;border-top:1px solid rgba(124,111,255,.1);display:flex;flex-direction:column;gap:7px}
+
+/* subject row */
+.subject-item{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:10px 12px;border-radius:10px;
+  background:rgba(124,111,255,.05);border:1px solid rgba(124,111,255,.09);
+  transition:background .25s,border-color .25s;
+}
+.subject-item:hover{background:rgba(124,111,255,.1);border-color:rgba(124,111,255,.2)}
+.subj-icon{
+  width:28px;height:28px;border-radius:8px;flex-shrink:0;
+  background:linear-gradient(135deg,rgba(96,165,250,.14),rgba(124,111,255,.14));
+  border:1px solid rgba(124,111,255,.18);
+  display:flex;align-items:center;justify-content:center;font-size:.84rem;line-height:1;
+}
+.subj-name{font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:500;color:var(--off-white);margin-bottom:3px}
+.subj-desc{font-family:'Outfit',sans-serif;font-size:.74rem;font-weight:300;color:var(--gray);line-height:1.55;margin-bottom:5px}
+.skill-gained{
+  display:inline-block;
+  font-family:'Outfit',sans-serif;font-size:.66rem;font-weight:500;
+  letter-spacing:.07em;text-transform:uppercase;
+  padding:2px 8px;border-radius:100px;
+  background:rgba(96,165,250,.08);border:1px solid rgba(96,165,250,.2);color:var(--blue);
+}
+
+/* ── Scroll reveal ── */
+.reveal{opacity:0;transition:opacity .75s ease,transform .75s ease}
+.reveal.from-left {transform:translateX(-36px)}
+.reveal.from-right{transform:translateX(36px)}
+.reveal.from-node {transform:scale(.72)}
+.reveal.visible   {opacity:1!important;transform:none!important}
+
+/* ── Keyframes ── */
+@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── RESPONSIVE ─────────────────────────── */
+@media(max-width:680px){
+  :root{--node:40px;--gap:16px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+
+  /* Move line to left edge */
+  .tl-line{left:calc(var(--node)/2);transform:none}
+
+  /* Stack: node on left, card to its right */
+  .tl-row{align-items:flex-start}
+  .tl-side.empty{display:none}
+  .tl-side.left,.tl-side.right{
+    flex:1;
+    padding-left:var(--gap)!important;
+    padding-right:0!important;
+    justify-content:flex-start!important;
+  }
+  /* Reorder so centre (node) is always first */
+  .tl-side.left {order:2}
+  .tl-side.right{order:2}
+  .tl-centre    {order:1;flex:0 0 var(--node)}
+
+  .tl-connector{display:none}
+  .tl-card{max-width:100%}
+  .reveal.from-left,.reveal.from-right{transform:translateY(18px)}
+}
+</style>
+</head>
+<body>
+<div id="grain"></div>
+<div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div>
+<div id="cursor-orb"></div>
+<div id="cursor-trail"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Harsit Chavda</a>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#journey" class="active">Journey</a></li>
+    <li><a href="#">Projects</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#">Home</a><a href="#">About</a>
+  <a href="#journey">Journey</a><a href="#">Projects</a><a href="#">Contact</a>
+</div>
+
+<div class="page">
+<section class="journey" id="journey">
+
+  <div class="section-head">
+    <span class="section-label">Academic Path</span>
+    <h2 class="section-title">My <span class="italic-word">Journey</span></h2>
+    <p class="section-subtitle">Diploma in Computer Engineering</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="tl-outer">
+    <div class="tl-line"></div>
+
+    <!-- ══════════ S1 — card LEFT ══════════ -->
+    <div class="tl-row">
+
+      <div class="tl-side left">
+        <div class="tl-card reveal from-left">
+          <div class="card-header">
+            <h3 class="card-title">Semester <span class="num-italic">One</span></h3>
+            <span class="status-pill">✓ Completed</span>
+          </div>
+          <p class="card-sub">Diploma in Computer Engineering</p>
+          <div class="grades">
+            <div class="grade-chip">SPI <span>8.4</span></div>
+            <div class="grade-chip">CPI <span>8.4</span></div>
+          </div>
+          <button class="expand-btn" onclick="toggleAcc(this)">
+            <div class="btn-icon"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></div>
+            View Subjects
+          </button>
+          <div class="accordion">
+            <div class="subjects-list">
+
+              <div class="subject-item">
+                <div class="subj-icon">🧮</div>
+                <div class="subj-text">
+                  <div class="subj-name">Mathematics — I</div>
+                  <div class="subj-desc">Algebra, matrices, determinants and applied mathematical foundations used across all engineering domains.</div>
+                  <span class="skill-gained">✦ Analytical Thinking</span>
+                </div>
+              </div>
+
+              <div class="subject-item">
+                <div class="subj-icon">⚡</div>
+                <div class="subj-text">
+                  <div class="subj-name">Basic Electrical Engineering</div>
+                  <div class="subj-desc">Understanding circuits, Ohm's law, AC/DC systems and how electricity underpins computing hardware.</div>
+                  <span class="skill-gained">✦ Circuit Reasoning</span>
+                </div>
+              </div>
+
+              <div class="subject-item">
+                <div class="subj-icon">💻</div>
+                <div class="subj-text">
+                  <div class="subj-name">Programming Fundamentals (C)</div>
+                  <div class="subj-desc">Core logic using C language — variables, conditionals, loops, functions and structured problem solving.</div>
+                  <span class="skill-gained">✦ Logical Programming</span>
+                </div>
+              </div>
+
+              <div class="subject-item">
+                <div class="subj-icon">🖥️</div>
+                <div class="subj-text">
+                  <div class="subj-name">Computer Fundamentals</div>
+                  <div class="subj-desc">Computer architecture, memory hierarchy, binary systems, I/O devices and how computers process data.</div>
+                  <span class="skill-gained">✦ Hardware Awareness</span>
+                </div>
+              </div>
+
+              <div class="subject-item">
+                <div class="subj-icon">🔬</div>
+                <div class="subj-text">
+                  <div class="subj-name">Engineering Science</div>
+                  <div class="subj-desc">Applied physics and chemistry concepts that form the scientific base of engineering technology.</div>
+                  <span class="skill-gained">✦ Scientific Foundation</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-centre">
+        <div class="tl-connector to-left"></div>
+        <div class="tl-node reveal from-node">
+          <div class="node-inner"><span class="node-num">S1</span></div>
+        </div>
+      </div>
+
+      <div class="tl-side right empty"></div>
+    </div>
+    <!-- /S1 -->
+
+
+    <!-- ══════════ S2 — card RIGHT ══════════ -->
+    <div class="tl-row">
+
+      <div class="tl-side left empty"></div>
+
+      <div class="tl-centre">
+        <div class="tl-connector to-right"></div>
+        <div class="tl-node reveal from-node">
+          <div class="node-inner"><span class="node-num">S2</span></div>
+        </div>
+      </div>
+
+      <div class="tl-side right">
+        <div class="tl-card reveal from-right">
+          <div class="card-header">
+            <h3 class="card-title">Semester <span class="num-italic">Two</span></h3>
+            <span class="status-pill">✓ Completed</span>
+          </div>
+          <p class="card-sub">Diploma in Computer Engineering</p>
+          <div class="grades">
+            <div class="grade-chip">SPI <span>8.7</span></div>
+            <div class="grade-chip">CPI <span>8.55</span></div>
+          </div>
+          <button class="expand-btn" onclick="toggleAcc(this)">
+            <div class="btn-icon"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></div>
+            View Subjects
+          </button>
+          <div class="accordion">
+            <div class="subjects-list">
+
+              <div class="subject-item">
+                <div class="subj-icon">📐</div>
+                <div class="subj-text">
+                  <div class="subj-name">Mathematics — II</div>
+                  <div class="subj-desc">Calculus, differential equations and advanced methods applied to engineering analysis and modelling.</div>
+                  <span class="skill-gained">✦ Mathematical Modelling</span>
+                </div>
+              </div>
+
+              <div class="subject-item">
+                <div class="subj-icon">🐍</div>
+                <div class="subj-text">
+                  <div class="subj-name">Object-Oriented Programming</div>
+                  <div class="subj-desc">Real-world modelling using classes, objects, inheritance, polymorphism and encapsulation in C++ / Java.</div>
+                  <span class="skill-gained">✦ OOP Design</span>
+                </div>
+              </div>
+
+              <div class="subject-item">
+                <div class="subj-icon">🗄️</div>
+                <div class="subj-text">
+                  <div class="subj-name">Database Management Systems</div>
+                  <div class="subj-desc">Designing relational databases, writing SQL queries, ER modelling and applying normalisation techniques.</div>
+                  <span class="skill-gained">✦ SQL & Data Modelling</span>
+                </div>
+              </div>
+
+              <div class="subject-item">
+                <div class="subj-icon">🌐</div>
+                <div class="subj-text">
+                  <div class="subj-name">Web Technologies</div>
+                  <div class="subj-desc">Creating structured web pages using HTML5, CSS3 and basic JavaScript for interactivity and layout.</div>
+                  <span class="skill-gained">✦ Front-End Basics</span>
+                </div>
+              </div>
+
+              <div class="subject-item">
+                <div class="subj-icon">💾</div>
+                <div class="subj-text">
+                  <div class="subj-name">Data Structures</div>
+                  <div class="subj-desc">Implementing and analysing arrays, linked lists, stacks, queues, trees and fundamental sorting algorithms.</div>
+                  <span class="skill-gained">✦ Algorithmic Thinking</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /S2 -->
+
+
+    <!-- ══════════ S3 — card LEFT ══════════ -->
+    <div class="tl-row">
+
+      <div class="tl-side left">
+        <div class="tl-card reveal from-left">
+          <div class="card-header">
+            <h3 class="card-title">Semester <span class="num-italic">Three</span></h3>
+            <span class="status-pill">✓ Completed</span>
+          </div>
+          <p class="card-sub">Diploma in Computer Engineering</p>
+          <div class="grades">
+            <div class="grade-chip">SPI <span>9.1</span></div>
+            <div class="grade-chip">CPI <span>8.73</span></div>
+          </div>
+          <button class="expand-btn" onclick="toggleAcc(this)">
+            <div class="btn-icon"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></div>
+            View Subjects
+          </button>
+          <div class="accordion">
+            <div class="subjects-list">
+
+              <div class="subject-item">
+                <div class="subj-icon">🔧</div>
+                <div class="subj-text">
+                  <div class="subj-name">Operating Systems</div>
+                  <div class="subj-desc">Process scheduling, memory management, file systems and how an OS controls hardware resources.</div>
+                  <span class="skill-gained">✦ System-Level Thinking</span>
+                </div>
+              </div>
+
+              <div class="subject-item">
+                <div class="subj-icon">🕸️</div>
+                <div class="subj-text">
+                  <div class="subj-name">Computer Networks</div>
+                  <div class="subj-desc">OSI and TCP/IP models, protocols (HTTP, DNS, FTP), IP addressing, routing and network security basics.</div>
+                  <span class="skill-gained">✦ Networking Concepts</span>
+                </div>
+              </div>
+
+              <div class="subject-item">
+                <div class="subj-icon">📊</div>
+                <div class="subj-text">
+                  <div class="subj-name">Python Programming</div>
+                  <div class="subj-desc">Scripting, file handling, data manipulation and using libraries like NumPy and Pandas for real data tasks.</div>
+                  <span class="skill-gained">✦ Python & Data Handling</span>
+                </div>
+              </div>
+
+              <div class="subject-item">
+                <div class="subj-icon">🧠</div>
+                <div class="subj-text">
+                  <div class="subj-name">Software Engineering</div>
+                  <div class="subj-desc">SDLC methodologies (Agile, Waterfall), requirements gathering, testing strategies and documentation.</div>
+                  <span class="skill-gained">✦ Project Planning</span>
+                </div>
+              </div>
+
+              <div class="subject-item">
+                <div class="subj-icon">🔐</div>
+                <div class="subj-text">
+                  <div class="subj-name">Information Security</div>
+                  <div class="subj-desc">Cryptographic techniques, authentication, common cyber threats and defensive security strategies.</div>
+                  <span class="skill-gained">✦ Security Awareness</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-centre">
+        <div class="tl-connector to-left"></div>
+        <div class="tl-node reveal from-node">
+          <div class="node-inner"><span class="node-num">S3</span></div>
+        </div>
+      </div>
+
+      <div class="tl-side right empty"></div>
+    </div>
+    <!-- /S3 -->
+
+
+    <!-- ══════════ S4 — card RIGHT ══════════ -->
+    <div class="tl-row">
+
+      <div class="tl-side left empty"></div>
+
+      <div class="tl-centre">
+        <div class="tl-connector to-right"></div>
+        <div class="tl-node reveal from-node">
+          <div class="node-inner"><span class="node-num">S4</span></div>
+        </div>
+      </div>
+
+      <div class="tl-side right">
+        <div class="tl-card reveal from-right">
+          <div class="card-header">
+            <h3 class="card-title">Semester <span class="num-italic">Four</span></h3>
+            <span class="status-pill">✓ Completed</span>
+          </div>
+          <p class="card-sub">Diploma in Computer Engineering</p>
+          <div class="grades">
+            <div class="grade-chip">SPI <span>9.3</span></div>
+            <div class="grade-chip">CPI <span>8.90</span></div>
+            <div class="grade-chip">CGPA <span>8.90</span></div>
+          </div>
+          <button class="expand-btn" onclick="toggleAcc(this)">
+            <div class="btn-icon"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></div>
+            View Subjects
+          </button>
+          <div class="accordion">
+            <div class="subjects-list">
+
+              <div class="subject-item">
+                <div class="subj-icon">📈</div>
+                <div class="subj-text">
+                  <div class="subj-name">Data Analytics</div>
+                  <div class="subj-desc">Exploratory analysis, statistical methods and building visual reports using Python — Pandas, Matplotlib, Seaborn.</div>
+                  <span class="skill-gained">✦ Data Analysis & Visualisation</span>
+                </div>
+              </div>
+
+              <div class="subject-item">
+                <div class="subj-icon">☁️</div>
+                <div class="subj-text">
+                  <div class="subj-name">Cloud Computing</div>
+                  <div class="subj-desc">Cloud service models (IaaS/PaaS/SaaS), deployment strategies and hands-on exposure to AWS and GCP basics.</div>
+                  <span class="skill-gained">✦ Cloud Infrastructure</span>
+                </div>
+              </div>
+
+              <div class="subject-item">
+                <div class="subj-icon">🤖</div>
+                <div class="subj-text">
+                  <div class="subj-name">Machine Learning Basics</div>
+                  <div class="subj-desc">Supervised and unsupervised learning, model training, evaluation metrics and introduction to scikit-learn.</div>
+                  <span class="skill-gained">✦ ML Fundamentals</span>
+                </div>
+              </div>
+
+              <div class="subject-item">
+                <div class="subj-icon">📱</div>
+                <div class="subj-text">
+                  <div class="subj-name">Mobile Application Development</div>
+                  <div class="subj-desc">Building mobile apps with UI/UX principles, responsiveness and cross-platform deployment techniques.</div>
+                  <span class="skill-gained">✦ App Development</span>
+                </div>
+              </div>
+
+              <div class="subject-item">
+                <div class="subj-icon">🎓</div>
+                <div class="subj-text">
+                  <div class="subj-name">Project Work</div>
+                  <div class="subj-desc">End-to-end capstone applying data analytics, Python and SQL skills to solve a real-world business problem.</div>
+                  <span class="skill-gained">✦ Project Execution</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /S4 -->
+
+  </div><!-- /tl-outer -->
+</section>
+</div><!-- /page -->
+
+<script>
+/* ── CURSOR ─────────────────────── */
+const orb=document.getElementById('cursor-orb'),trail=document.getElementById('cursor-trail');
+let ox=0,oy=0,tx=0,ty=0,lm=0;
+document.addEventListener('mousemove',e=>{ox=e.clientX;oy=e.clientY;lm=Date.now()});
+document.querySelectorAll('a,button,.tl-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    orb.style.width=orb.style.height='18px';
+    orb.style.boxShadow='0 0 14px 6px rgba(124,111,255,.8),0 0 36px 12px rgba(124,111,255,.25)';
+    trail.style.width=trail.style.height='44px';
+  });
+  el.addEventListener('mouseleave',()=>{
+    orb.style.width=orb.style.height=orb.style.boxShadow='';
+    trail.style.width=trail.style.height='';
+  });
+});
+function lerp(a,b,t){return a+(b-a)*t}
+(function tick(){
+  orb.style.left=ox+'px';orb.style.top=oy+'px';
+  tx=lerp(tx,ox,.1);ty=lerp(ty,oy,.1);
+  trail.style.left=tx+'px';trail.style.top=ty+'px';
+  trail.style.opacity=Date.now()-lm>800?'0':'1';
+  requestAnimationFrame(tick);
+})();
+
+/* ── NAVBAR ─────────────────────── */
+const nav=document.getElementById('navbar');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>30),{passive:true});
+
+/* ── HAMBURGER ──────────────────── */
+const ham=document.getElementById('hamburger'),mob=document.getElementById('mobile-menu');
+ham.addEventListener('click',()=>{const o=ham.classList.toggle('open');mob.classList.toggle('open',o)});
+mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}));
+
+/* ── ACCORDION ──────────────────── */
+function toggleAcc(btn){
+  const acc=btn.nextElementSibling;
+  const open=btn.classList.toggle('open');
+  if(open){acc.style.maxHeight=acc.scrollHeight+'px';acc.classList.add('open')}
+  else    {acc.style.maxHeight='0';acc.classList.remove('open')}
+  btn.lastChild.textContent=open?' Hide Subjects':' View Subjects';
+}
+
+/* ── SCROLL REVEAL ──────────────── */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}
+  });
+},{threshold:0.15});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* Section head paused until in view */
+const hobs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.style.animationPlayState='running';hobs.unobserve(e.target)}});
+},{threshold:.15});
+document.querySelectorAll('.section-head').forEach(el=>{
+  el.style.animationPlayState='paused';hobs.observe(el);
+});
+</script>
+</body>
+</html>

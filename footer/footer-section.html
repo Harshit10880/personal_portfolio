@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Footer — Harsit Chavda Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #05070D;
+      --bg-above:   #0B0F1A;
+      --text:       #EAEAEA;
+      --muted:      #A0A0A0;
+      --subtle:     #4a4a5a;
+      --blue:       #4F46E5;
+      --purple:     #7C3AED;
+      --pink:       #EC4899;
+      --grad:       linear-gradient(135deg, #4F46E5, #7C3AED, #EC4899);
+      --font:       'Poppins', sans-serif;
+      --mono:       'DM Mono', monospace;
+      --ease:       0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    /* ── Demo page scaffold ── */
+    body {
+      font-family: var(--font);
+      background: linear-gradient(160deg, var(--bg-above) 0%, var(--bg) 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    /* Fake page content above footer */
+    .page-stub {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 20px;
+      text-align: center;
+    }
+    .page-stub-inner { opacity: 0.15; }
+    .page-stub-inner h1 {
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      background: var(--grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .page-stub-inner p { font-size: 0.9rem; color: var(--muted); margin-top: 8px; }
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
+    .site-footer {
+      position: relative;
+      background: var(--bg);
+      overflow: hidden;
+    }
+
+    /* Top gradient border */
+    .footer-border {
+      height: 1.5px;
+      background: var(--grad);
+      box-shadow: 0 0 20px rgba(124,58,237,0.4), 0 0 60px rgba(79,70,229,0.15);
+    }
+
+    /* Ambient glow orbs */
+    .footer-orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(90px);
+    }
+    .footer-orb-left  { width: 360px; height: 360px; left: -100px; top: -80px;  background: radial-gradient(circle, rgba(79,70,229,0.12) 0%, transparent 70%); }
+    .footer-orb-right { width: 300px; height: 300px; right: -80px; bottom: -60px; background: radial-gradient(circle, rgba(236,72,153,0.1) 0%, transparent 70%); }
+
+    /* ── Main footer body ── */
+    .footer-main {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 64px 40px 48px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* ── Column headings ── */
+    .col-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-family: var(--mono);
+      background: var(--grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    /* ══ LEFT: Branding ══ */
+    .col-brand {}
+    .brand-name {
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      margin-bottom: 4px;
+      background: linear-gradient(135deg, #fff 30%, rgba(165,180,252,0.8));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .brand-role {
+      font-size: 0.8rem;
+      font-weight: 500;
+      font-family: var(--mono);
+      background: var(--grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 16px;
+      letter-spacing: 0.02em;
+    }
+    .brand-tagline {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 24px;
+      max-width: 240px;
+      font-style: italic;
+    }
+    .brand-tagline em { color: rgba(165,180,252,0.7); font-style: normal; font-weight: 500; }
+
+    .built-with {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      color: var(--subtle);
+      font-family: var(--mono);
+    }
+    .built-with svg { color: #EC4899; animation: heartbeat 2.2s ease infinite; }
+    @keyframes heartbeat {
+      0%,100% { transform: scale(1); }
+      15%      { transform: scale(1.25); }
+      30%      { transform: scale(1); }
+      45%      { transform: scale(1.15); }
+    }
+
+    /* ══ MIDDLE: Nav ══ */
+    .col-nav {}
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .nav-list li a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 400;
+      padding: 6px 0;
+      position: relative;
+      transition: color var(--ease);
+    }
+    /* Animated underline */
+    .nav-list li a::after {
+      content: '';
+      position: absolute;
+      bottom: 2px; left: 0;
+      height: 1px;
+      width: 0;
+      background: var(--grad);
+      transition: width var(--ease);
+      border-radius: 2px;
+    }
+    .nav-list li a:hover { color: var(--text); }
+    .nav-list li a:hover::after { width: 100%; }
+    .nav-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--grad);
+      background: linear-gradient(135deg, #4F46E5, #EC4899);
+      flex-shrink: 0;
+      opacity: 0;
+      transform: scale(0);
+      transition: opacity var(--ease), transform var(--ease);
+    }
+    .nav-list li a:hover .nav-dot { opacity: 1; transform: scale(1); }
+
+    /* ══ RIGHT: Contact & Socials ══ */
+    .col-contact {}
+    .contact-items {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: color var(--ease), background var(--ease), border-color var(--ease), transform var(--ease);
+    }
+    .contact-item:hover {
+      color: var(--text);
+      background: rgba(79,70,229,0.06);
+      border-color: rgba(124,58,237,0.3);
+      transform: translateX(3px);
+    }
+    .ci-icon {
+      width: 30px; height: 30px;
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: transform var(--ease);
+    }
+    .contact-item:hover .ci-icon { transform: scale(1.1); }
+    .ci-icon svg { width: 15px; height: 15px; }
+    .icon-email-bg   { background: rgba(79,70,229,0.14); color: #818cf8; }
+    .icon-linkedin-bg { background: rgba(10,102,194,0.14); color: #60a5fa; }
+    .icon-github-bg  { background: rgba(255,255,255,0.07); color: #d1d5db; }
+
+    /* Resume button */
+    .resume-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      padding: 11px 20px;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--ease), box-shadow var(--ease);
+      color: var(--text);
+    }
+    /* gradient border */
+    .resume-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 10px;
+      padding: 1.5px;
+      background: var(--grad);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+    }
+    .resume-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--grad);
+      opacity: 0;
+      transition: opacity var(--ease);
+      border-radius: 10px;
+    }
+    .resume-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(124,58,237,0.3); }
+    .resume-btn:hover::after { opacity: 0.1; }
+    .resume-btn span { position: relative; z-index: 1; }
+    .resume-btn svg  { position: relative; z-index: 1; width: 14px; height: 14px; }
+
+    /* ══ Divider ══ */
+    .footer-divider {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .footer-divider hr {
+      border: none;
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+    }
+
+    /* ══ Bottom bar ══ */
+    .footer-bottom {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 40px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .copyright {
+      font-size: 0.78rem;
+      color: var(--subtle);
+      font-family: var(--mono);
+    }
+    .copyright strong { color: var(--muted); font-weight: 500; }
+
+    /* Social icon pills */
+    .social-pills {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .social-pill {
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      color: var(--muted);
+      transition: color var(--ease), background var(--ease), border-color var(--ease), transform var(--ease), box-shadow var(--ease);
+    }
+    .social-pill svg { width: 15px; height: 15px; }
+    .social-pill:hover {
+      color: var(--text);
+      background: rgba(124,58,237,0.15);
+      border-color: rgba(124,58,237,0.4);
+      transform: translateY(-3px) scale(1.08);
+      box-shadow: 0 6px 20px rgba(124,58,237,0.25);
+    }
+
+    /* ══ Back-to-top ══ */
+    .back-to-top {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 999;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(11,15,26,0.85);
+      backdrop-filter: blur(12px);
+      border: 1.5px solid rgba(124,58,237,0.35);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(12px) scale(0.9);
+      transition: opacity var(--ease), transform var(--ease), box-shadow var(--ease), border-color var(--ease);
+      pointer-events: none;
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    .back-to-top:hover {
+      box-shadow: 0 0 0 3px rgba(124,58,237,0.2), 0 8px 24px rgba(124,58,237,0.3);
+      border-color: rgba(124,58,237,0.7);
+      transform: translateY(-3px) scale(1.05);
+    }
+    .back-to-top:active { transform: scale(0.95); }
+    .back-to-top svg {
+      width: 18px; height: 18px;
+      background: var(--grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      /* fallback for SVG */
+      color: #a5b4fc;
+      transition: transform var(--ease);
+    }
+    .back-to-top:hover svg { transform: translateY(-2px); }
+
+    /* ══ Animations ══ */
+    .footer-main, .footer-bottom {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.7s ease forwards;
+    }
+    .footer-bottom { animation-delay: 0.15s; }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ══ Responsive ══ */
+    @media (max-width: 860px) {
+      .footer-main {
+        grid-template-columns: 1fr 1fr;
+        gap: 36px;
+        padding: 48px 28px 36px;
+      }
+      .col-brand { grid-column: 1 / -1; }
+    }
+    @media (max-width: 560px) {
+      .footer-main {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 40px 24px 28px;
+        text-align: center;
+      }
+      .brand-tagline { max-width: 100%; }
+      .built-with { justify-content: center; }
+      .nav-list { align-items: center; }
+      .nav-list li a::after { display: none; }
+      .contact-item { justify-content: center; }
+      .resume-btn { justify-content: center; width: 100%; }
+      .footer-divider { padding: 0 24px; }
+      .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+        padding: 16px 24px 28px;
+        gap: 14px;
+      }
+      .back-to-top { bottom: 20px; right: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fake content above footer -->
+  <div class="page-stub" id="top">
+    <div class="page-stub-inner">
+      <h1>Harsit Chavda</h1>
+      <p>Portfolio • Scroll down to see the footer</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       FOOTER
+  ════════════════════════════════════ -->
+  <footer class="site-footer" id="footer">
+
+    <!-- Gradient top border -->
+    <div class="footer-border"></div>
+
+    <!-- Ambient orbs -->
+    <div class="footer-orb footer-orb-left"></div>
+    <div class="footer-orb footer-orb-right"></div>
+
+    <!-- Main 3-column grid -->
+    <div class="footer-main">
+
+      <!-- ── LEFT: Brand ── -->
+      <div class="col-brand">
+        <span class="col-label">// identity</span>
+        <p class="brand-name">Harsit Chavda</p>
+        <p class="brand-role">Aspiring Data Analyst</p>
+        <p class="brand-tagline">
+          <em>Turning data into decisions</em><br/>
+          one insight at a time.
+        </p>
+        <span class="built-with">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          Built with passion
+        </span>
+      </div>
+
+      <!-- ── MIDDLE: Nav ── -->
+      <div class="col-nav">
+        <span class="col-label">// navigate</span>
+        <ul class="nav-list">
+          <li><a href="#top"><span class="nav-dot"></span>Home</a></li>
+          <li><a href="#about"><span class="nav-dot"></span>About</a></li>
+          <li><a href="#journey"><span class="nav-dot"></span>Journey</a></li>
+          <li><a href="#skills"><span class="nav-dot"></span>Skills</a></li>
+          <li><a href="#projects"><span class="nav-dot"></span>Projects</a></li>
+          <li><a href="#certifications"><span class="nav-dot"></span>Certifications</a></li>
+          <li><a href="#contact"><span class="nav-dot"></span>Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- ── RIGHT: Contact ── -->
+      <div class="col-contact">
+        <span class="col-label">// connect</span>
+        <div class="contact-items">
+
+          <a href="mailto:harsit.chavda@example.com" class="contact-item">
+            <span class="ci-icon icon-email-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+              </svg>
+            </span>
+            harsit.chavda@example.com
+          </a>
+
+          <a href="https://linkedin.com/in/harsitchavda" target="_blank" rel="noopener" class="contact-item">
+            <span class="ci-icon icon-linkedin-bg">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect x="2" y="9" width="4" height="12"/>
+                <circle cx="4" cy="4" r="2"/>
+              </svg>
+            </span>
+            linkedin.com/in/harsitchavda
+          </a>
+
+          <a href="https://github.com/harsitchavda" target="_blank" rel="noopener" class="contact-item">
+            <span class="ci-icon icon-github-bg">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+              </svg>
+            </span>
+            github.com/harsitchavda
+          </a>
+
+        </div>
+
+        <!-- Download Resume -->
+        <a href="#" class="resume-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span>Download Resume</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Horizontal rule -->
+    <div class="footer-divider"><hr /></div>
+
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+      <p class="copyright">
+        © 2026 <strong>Harsit Chavda</strong>. All rights reserved.
+      </p>
+
+      <!-- Social icon pills -->
+      <div class="social-pills">
+        <a href="mailto:harsit.chavda@example.com" class="social-pill" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+          </svg>
+        </a>
+        <a href="https://linkedin.com/in/harsitchavda" target="_blank" rel="noopener" class="social-pill" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect x="2" y="9" width="4" height="12"/>
+            <circle cx="4" cy="4" r="2"/>
+          </svg>
+        </a>
+        <a href="https://github.com/harsitchavda" target="_blank" rel="noopener" class="social-pill" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Back-to-top button -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>
+  </button>
+
+  <script>
+    // Back-to-top visibility
+    const btn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('visible', window.scrollY > 200);
+    }, { passive: true });
+
+    // Intersection observer for footer fade-in
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.animationPlayState = 'running';
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.05 });
+
+    document.querySelectorAll('.footer-main, .footer-bottom').forEach(el => {
+      el.style.animationPlayState = 'paused';
+      io.observe(el);
+    });
+  </script>
+</body>
+</html>
