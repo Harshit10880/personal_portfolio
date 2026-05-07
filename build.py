@@ -20,41 +20,33 @@ combined_css = ""
 combined_js = ""
 fonts = set()
 
-# Process first file (Hero) to get the base structure
 with open(os.path.join(base_dir, sections[0][0]), "r", encoding="utf-8") as f:
     soup = BeautifulSoup(f.read(), "html.parser")
 
 for link in soup.find_all("link"):
     fonts.add(str(link))
 
-# Extract original CSS from Hero
 hero_style = soup.find("style").string if soup.find("style") else ""
-# Remove overflow: hidden and height: 100% from html and body
 hero_style = re.sub(r'html\s*\{[^}]*overflow:\s*hidden[^}]*\}', 'html { scroll-behavior: smooth; }', hero_style)
 hero_style = re.sub(r'height:\s*100%;', '', hero_style)
 hero_style = re.sub(r'overflow:\s*hidden;', '', hero_style)
-
 combined_css += hero_style + "\n"
 
-# Extract JS from Hero
 hero_script = soup.find("script").string if soup.find("script") else ""
-combined_js += hero_script + "\n"
+combined_js += "/* JS from hero */\n" + hero_script + "\n"
 
-# Get body content from Hero
 body = soup.find("body")
 
-# Change Hero's nav links to point to sections
 nav = body.find("nav")
 if nav:
     ul = nav.find("ul")
     if ul:
         links = ul.find_all("a")
         if len(links) >= 4:
-            links[0]['href'] = "#top"      # Home
-            links[1]['href'] = "#about"    # About
-            links[2]['href'] = "#projects" # Projects
-            links[3]['href'] = "#contact"  # Contact
-            # We'll add Journey, Skills, Certifications back
+            links[0]['href'] = "#top"      
+            links[1]['href'] = "#about"    
+            links[2]['href'] = "#projects" 
+            links[3]['href'] = "#contact"  
 
 mobile_menu = body.find("div", class_="mobile-menu")
 if mobile_menu:
@@ -65,27 +57,22 @@ if mobile_menu:
         mobile_links[2]['href'] = "#projects"
         mobile_links[3]['href'] = "#contact"
 
-# Give hero section an ID
 hero_sec = body.find("section", class_="hero")
 if hero_sec:
     hero_sec['id'] = "top"
 
-# Now parse the rest of the sections
 for filepath, sec_id in sections[1:]:
     with open(os.path.join(base_dir, filepath), "r", encoding="utf-8") as f:
         s = BeautifulSoup(f.read(), "html.parser")
     
-    # Collect fonts
     for link in s.find_all("link"):
         fonts.add(str(link))
         
-    # Collect styles (avoiding global duplicates)
     style = s.find("style")
     if style:
         css = style.string
-        # Remove common resets and global tags to avoid overwriting hero
         css = re.sub(r'\*,\s*\*\:\:before,\s*\*\:\:after\s*\{[^}]*\}', '', css)
-        css = re.sub(r':root\s*\{[^}]*\}', '', css) # remove root variables except if specific
+        css = re.sub(r':root\s*\{[^}]*\}', '', css)
         css = re.sub(r'html,\s*body\s*\{[^}]*\}', '', css)
         css = re.sub(r'html\s*\{[^}]*\}', '', css)
         css = re.sub(r'body\s*\{[^}]*\}', '', css)
@@ -96,7 +83,7 @@ for filepath, sec_id in sections[1:]:
         css = re.sub(r'#cursor-trail\s*\{[^}]*\}', '', css)
         css = re.sub(r'\.blob\s*\{[^}]*\}', '', css)
         css = re.sub(r'\.blob-\d+\s*\{[^}]*\}', '', css)
-        css = re.sub(r'@keyframes bdrift\s*\{[^}]*\}', '', css)
+        css = re.sub(r'@keyframes blob-drift\s*\{[^}]*\}', '', css)
         css = re.sub(r'@keyframes bd\s*\{[^}]*\}', '', css)
         css = re.sub(r'nav\s*\{[^}]*\}', '', css)
         css = re.sub(r'nav\.scrolled\s*\{[^}]*\}', '', css)
@@ -105,14 +92,11 @@ for filepath, sec_id in sections[1:]:
         css = re.sub(r'\.hamburger.*?(?=\})\}', '', css, flags=re.DOTALL)
         css = re.sub(r'\.mobile-menu.*?(?=\})\}', '', css, flags=re.DOTALL)
         
-        # Scoped classes prefix
         combined_css += f"\n/* CSS from {sec_id} */\n" + css + "\n"
 
-    # Collect JS (only specific stuff)
     script = s.find("script")
     if script:
         js = script.string
-        # Remove cursor, grain, navbar logic from subsequent scripts
         js = re.sub(r'/\*\s*──\s*CURSOR.*?(?=/\*|$)', '', js, flags=re.DOTALL)
         js = re.sub(r'const\s+orb\s*=.*?\(\);', '', js, flags=re.DOTALL)
         js = re.sub(r'/\*\s*──\s*NAVBAR.*?}\);', '', js, flags=re.DOTALL)
@@ -120,14 +104,14 @@ for filepath, sec_id in sections[1:]:
         js = re.sub(r'/\*\s*──\s*HAMBURGER.*?}\)\);', '', js, flags=re.DOTALL)
         js = re.sub(r'const\s+ham\s*=.*?\)\);', '', js, flags=re.DOTALL)
 
+        # Rename conflicting variables
+        var_to_rename = ['observer', 'obs', 'hobs', 'btn', 'io']
+        for var in var_to_rename:
+            js = re.sub(rf'\b{var}\b', f'{var}_{sec_id}', js)
+
         combined_js += f"\n/* JS from {sec_id} */\n" + js + "\n"
         
-    # Collect Body Content
     s_body = s.find("body")
-    
-    # We want to extract just the section or page div
-    # Some use <div class="page"><section>...</section></div>
-    # Footer uses <footer class="site-footer">
     
     if sec_id == "footer":
         footer_el = s_body.find("footer")
@@ -136,7 +120,6 @@ for filepath, sec_id in sections[1:]:
     else:
         page_div = s_body.find("div", class_="page")
         if page_div:
-            # add the section ID
             sec_el = page_div.find("section")
             if sec_el and not sec_el.has_attr("id"):
                 sec_el["id"] = sec_id
@@ -148,7 +131,6 @@ for filepath, sec_id in sections[1:]:
                     sec_el["id"] = sec_id
                 body.append(sec_el)
 
-# Unify navigation
 if nav:
     ul = nav.find("ul")
     if ul:
@@ -159,7 +141,7 @@ if nav:
             ("Journey", "#journey"),
             ("Skills", "#skills"),
             ("Projects", "#projects"),
-            ("Certifications", "#certs"),
+            ("Certifications", "#certifications"),
             ("Contact", "#contact")
         ]
         for name, link in menu_items:
@@ -176,8 +158,6 @@ if mobile_menu:
         a.string = name
         mobile_menu.append(a)
 
-
-# Build final HTML
 final_html = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
