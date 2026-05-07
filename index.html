@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Harsit Chavda — Portfolio</title>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=DM+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,400;1,600;1,800&amp;family=Cormorant+Garamond:ital,wght@1,300;1,400;1,500;1,600&amp;family=Outfit:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=DM+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,400;1,600;1,800&amp;family=Cormorant+Garamond:ital,wght@1,300;1,400;1,500;1,600&amp;family=Outfit:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
 <style>
 
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -440,7 +440,7 @@
 
 
 
- to { transform: translate(28px,18px) scale(1.07); } }
+@keyframes bdrift { from { transform: translate(0,0) scale(1); } to { transform: translate(28px,18px) scale(1.07); } }
 
 /* ── NAVBAR ───────────────────────────────── */
 
@@ -2644,12 +2644,12 @@ to{transform:translate(26px,18px) scale(1.07)}}
 <!-- ── NAVBAR ─────────────────────────────────────────────────── -->
 <nav id="navbar">
 <a class="nav-logo" href="#">Harsit Chavda</a>
-<ul class="nav-links"><li><a href="#top">Home</a></li><li><a href="#about">About</a></li><li><a href="#journey">Journey</a></li><li><a href="#skills">Skills</a></li><li><a href="#projects">Projects</a></li><li><a href="#certs">Certifications</a></li><li><a href="#contact">Contact</a></li></ul>
+<ul class="nav-links"><li><a href="#top">Home</a></li><li><a href="#about">About</a></li><li><a href="#journey">Journey</a></li><li><a href="#skills">Skills</a></li><li><a href="#projects">Projects</a></li><li><a href="#certifications">Certifications</a></li><li><a href="#contact">Contact</a></li></ul>
 <button aria-label="Menu" class="hamburger" id="hamburger">
 <span></span><span></span><span></span>
 </button>
 </nav>
-<div class="mobile-menu" id="mobile-menu"><a href="#top">Home</a><a href="#about">About</a><a href="#journey">Journey</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#certs">Certifications</a><a href="#contact">Contact</a></div>
+<div class="mobile-menu" id="mobile-menu"><a href="#top">Home</a><a href="#about">About</a><a href="#journey">Journey</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#certifications">Certifications</a><a href="#contact">Contact</a></div>
 <!-- ── HERO ───────────────────────────────────────────────────── -->
 <section class="hero" id="top">
 <span class="hero-name-gradient">Harsit Chavda</span>
@@ -3955,6 +3955,7 @@ window.addEventListener('resize', () => {
 </div>
 </footer>
 <script>
+/* JS from hero */
 
 /* ── CUSTOM CURSOR ─────────────────────────────────────────────── */
 const orb   = document.getElementById('cursor-orb');
@@ -4105,7 +4106,7 @@ window.addEventListener('resize', () => {
 
 
 /* ── SCROLL-TRIGGERED ANIMATIONS ────── */
-const observer = new IntersectionObserver((entries) => {
+const observer_about = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if(e.isIntersecting) {
       e.target.style.animationPlayState = 'running';
@@ -4115,7 +4116,7 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.section-heading, .image-col, .text-col').forEach(el => {
   el.style.animationPlayState = 'paused';
-  observer.observe(el);
+  observer_about.observe(el);
 });
 
 
@@ -4126,28 +4127,28 @@ document.querySelectorAll('.section-heading, .image-col, .text-col').forEach(el 
 
 
 /* ── ACCORDION ──────────────────── */
-function toggleAcc(btn){
-  const acc=btn.nextElementSibling;
-  const open=btn.classList.toggle('open');
+function toggleAcc(btn_journey){
+  const acc=btn_journey.nextElementSibling;
+  const open=btn_journey.classList.toggle('open');
   if(open){acc.style.maxHeight=acc.scrollHeight+'px';acc.classList.add('open')}
   else    {acc.style.maxHeight='0';acc.classList.remove('open')}
-  btn.lastChild.textContent=open?' Hide Subjects':' View Subjects';
+  btn_journey.lastChild.textContent=open?' Hide Subjects':' View Subjects';
 }
 
 /* ── SCROLL REVEAL ──────────────── */
-const obs=new IntersectionObserver(entries=>{
+const obs_journey=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
-    if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}
+    if(e.isIntersecting){e.target.classList.add('visible');obs_journey.unobserve(e.target)}
   });
 },{threshold:0.15});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+document.querySelectorAll('.reveal').forEach(el=>obs_journey.observe(el));
 
 /* Section head paused until in view */
-const hobs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.style.animationPlayState='running';hobs.unobserve(e.target)}});
+const hobs_journey=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.style.animationPlayState='running';hobs_journey.unobserve(e.target)}});
 },{threshold:.15});
 document.querySelectorAll('.section-head').forEach(el=>{
-  el.style.animationPlayState='paused';hobs.observe(el);
+  el.style.animationPlayState='paused';hobs_journey.observe(el);
 });
 
 
@@ -4158,16 +4159,16 @@ document.querySelectorAll('.section-head').forEach(el=>{
 
 
 /* ── SCROLL REVEAL ──────────────── */
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});
+const obs_projects=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs_projects.unobserve(e.target)}});
 },{threshold:0.12});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+document.querySelectorAll('.reveal').forEach(el=>obs_projects.observe(el));
 
 /* Section head */
-const hobs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.style.animationPlayState='running';hobs.unobserve(e.target)}});
+const hobs_projects=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.style.animationPlayState='running';hobs_projects.unobserve(e.target)}});
 },{threshold:.1});
-document.querySelectorAll('.section-head').forEach(el=>{el.style.animationPlayState='paused';hobs.observe(el)});
+document.querySelectorAll('.section-head').forEach(el=>{el.style.animationPlayState='paused';hobs_projects.observe(el)});
 
 
 /* JS from certifications */
@@ -4395,19 +4396,19 @@ window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>30)
 
 
 /* SCROLL REVEAL */
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-const hobs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.animationPlayState='running';hobs.unobserve(e.target)}})},{threshold:.1});
-document.querySelectorAll('.section-head').forEach(el=>{el.style.animationPlayState='paused';hobs.observe(el)});
+const obs_certifications=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs_certifications.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs_certifications.observe(el));
+const hobs_certifications=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.animationPlayState='running';hobs_certifications.unobserve(e.target)}})},{threshold:.1});
+document.querySelectorAll('.section-head').forEach(el=>{el.style.animationPlayState='paused';hobs_certifications.observe(el)});
 
 
 /* JS from contact */
 
   const form     = document.getElementById('contactForm');
-  const btn      = document.getElementById('submitBtn');
+  const btn_contact      = document.getElementById('submitBtn');
   const spinner  = document.getElementById('spinner');
-  const btnIcon  = document.getElementById('btn-icon');
-  const btnText  = document.querySelector('.btn-text');
+  const btnIcon  = document.getElementById('btn_contact-icon');
+  const btnText  = document.querySelector('.btn_contact-text');
   const toastOk  = document.getElementById('toastSuccess');
   const toastErr = document.getElementById('toastError');
 
@@ -4451,7 +4452,7 @@ document.querySelectorAll('.section-head').forEach(el=>{el.style.animationPlaySt
     if (!validate()) return;
 
     // Loading state
-    btn.disabled = true;
+    btn_contact.disabled = true;
     btnText.textContent = 'Sending…';
     spinner.style.display = 'block';
     btnIcon.style.display = 'none';
@@ -4463,7 +4464,7 @@ document.querySelectorAll('.section-head').forEach(el=>{el.style.animationPlaySt
 
     spinner.style.display = 'none';
     btnIcon.style.display = 'block';
-    btn.disabled = false;
+    btn_contact.disabled = false;
     btnText.textContent = 'Send Message';
 
     if (success) {
@@ -4477,7 +4478,7 @@ document.querySelectorAll('.section-head').forEach(el=>{el.style.animationPlaySt
   });
 
   // ── Intersection Observer fade-in ──
-  const observer = new IntersectionObserver((entries) => {
+  const observer_contact = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.style.animationPlayState = 'running';
@@ -4486,31 +4487,31 @@ document.querySelectorAll('.section-head').forEach(el=>{el.style.animationPlaySt
   }, { threshold: 0.1 });
   document.querySelectorAll('.section-header, .contact-info, .form-card-wrapper').forEach(el => {
     el.style.animationPlayState = 'paused';
-    observer.observe(el);
+    observer_contact.observe(el);
   });
 
 
 /* JS from footer */
 
     // Back-to-top visibility
-    const btn = document.getElementById('backToTop');
+    const btn_footer = document.getElementById('backToTop');
     window.addEventListener('scroll', () => {
-      btn.classList.toggle('visible', window.scrollY > 200);
+      btn_footer.classList.toggle('visible', window.scrollY > 200);
     }, { passive: true });
 
-    // Intersection observer for footer fade-in
-    const io = new IntersectionObserver((entries) => {
+    // Intersection observer_footer for footer fade-in
+    const io_footer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
           e.target.style.animationPlayState = 'running';
-          io.unobserve(e.target);
+          io_footer.unobserve(e.target);
         }
       });
     }, { threshold: 0.05 });
 
     document.querySelectorAll('.footer-main, .footer-bottom').forEach(el => {
       el.style.animationPlayState = 'paused';
-      io.observe(el);
+      io_footer.observe(el);
     });
   
 
