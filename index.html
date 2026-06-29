@@ -51,18 +51,15 @@
 
     html {
       scroll-behavior: smooth;
-      height: 100%;
-      overflow: hidden;
     }
 
     body {
       background: #050a18;
       color: #f0eeff;
       font-family: 'Outfit', sans-serif;
-      min-height: 100%;
-      height: auto;
+      min-height: 100vh;
       overflow-x: hidden;
-      overflow-y: auto;
+      overflow-y: scroll;
       -ms-overflow-style: none;
       scrollbar-width: none;
       cursor: none;
@@ -5817,14 +5814,13 @@
 
     /* FINAL OVERRIDE */
     html {
-      overflow: hidden !important;
-      height: 100% !important;
+      scroll-behavior: smooth !important;
     }
 
     body {
       overflow-x: hidden !important;
-      overflow-y: auto !important;
-      height: auto !important;
+      overflow-y: scroll !important;
+      min-height: 100vh !important;
     }
 
 
