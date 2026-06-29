@@ -51,7 +51,7 @@
 
     html {
       scroll-behavior: smooth;
-      height: auto !important;
+      height: 100%;
       overflow-x: hidden !important;
       overflow-y: scroll !important;
       overscroll-behavior-y: none;
@@ -64,12 +64,11 @@
       min-height: 100vh;
       height: auto !important;
       overflow-x: hidden !important;
-      overflow-y: auto !important;
+      overflow-y: visible !important;
       -ms-overflow-style: none;
       scrollbar-width: none;
       cursor: none;
       overscroll-behavior-y: none;
-      -webkit-overflow-scrolling: touch;
     }
 
     /* Canvas behind everything */
@@ -5822,11 +5821,11 @@
     /* FINAL OVERRIDE */
     html {
       overflow-y: scroll !important;
-      height: auto !important;
+      height: 100% !important;
     }
 
     body {
-      overflow-y: auto !important;
+      overflow-y: visible !important;
       height: auto !important;
     }
 
