@@ -2685,6 +2685,105 @@
       }
     }
 
+    /* ===== STATS COUNTER CSS ===== */
+    .stats-section {
+      position: relative;
+      z-index: 10;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: clamp(50px, 8vh, 80px) clamp(20px, 6vw, 72px);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(16px, 3vw, 28px);
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: clamp(24px, 3vw, 36px) clamp(12px, 2vw, 20px);
+      background: rgba(124, 111, 255, 0.04);
+      border: 1px solid rgba(124, 111, 255, 0.12);
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .4s cubic-bezier(.22,1,.36,1), box-shadow .4s, border-color .4s;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(124, 111, 255, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+      transition: opacity .4s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      border-color: rgba(124, 111, 255, 0.3);
+      box-shadow: 0 8px 32px rgba(124, 111, 255, 0.12), 0 0 0 1px rgba(124, 111, 255, 0.15);
+    }
+
+    .stat-card:hover::before {
+      opacity: 1.5;
+    }
+
+    .stat-icon {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .stat-number {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff 20%, var(--accent) 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-family: var(--font-ui);
+      font-size: clamp(0.68rem, 1.2vw, 0.8rem);
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* stagger entrance */
+    .stat-card:nth-child(1) { animation: statIn .7s .1s cubic-bezier(.22,1,.36,1) both; }
+    .stat-card:nth-child(2) { animation: statIn .7s .2s cubic-bezier(.22,1,.36,1) both; }
+    .stat-card:nth-child(3) { animation: statIn .7s .3s cubic-bezier(.22,1,.36,1) both; }
+    .stat-card:nth-child(4) { animation: statIn .7s .4s cubic-bezier(.22,1,.36,1) both; }
+
+    @keyframes statIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.95); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Responsive */
+    @media (max-width: 680px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 400px) {
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+    }
+
     /* ===== SKILLS CSS ===== */
     *,
     *::before,
@@ -6724,6 +6823,33 @@
   </div>
   <div class="sect-divider"></div>
   <div class="page-wrap">
+    <section class="stats-section" id="stats">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-icon">🏆</span>
+          <div class="stat-number" data-target="9.86" data-decimals="2">0</div>
+          <div class="stat-label">Highest SPI Score</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">&#128640;</span>
+          <div class="stat-number" data-target="6" data-suffix="+" data-decimals="0">0</div>
+          <div class="stat-label">Projects Completed</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">📜</span>
+          <div class="stat-number" data-target="5" data-suffix="+" data-decimals="0">0</div>
+          <div class="stat-label">Certifications Earned</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">🎓</span>
+          <div class="stat-number" data-target="4" data-suffix="/4" data-decimals="0">0</div>
+          <div class="stat-label">Semesters Completed</div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="sect-divider"></div>
+  <div class="page-wrap">
     <section class="skills-section" id="skills">
 
       <header class="section-header">
@@ -7703,11 +7829,48 @@
         var ro = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } }); }, { threshold: .1 });
         document.querySelectorAll('.reveal').forEach(function (el) { ro.observe(el); });
         var ao = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.style.animationPlayState = 'running'; ao.unobserve(e.target); } }); }, { threshold: .08 });
-        document.querySelectorAll('.section-heading,.image-col,.text-col,.section-head,.cta-block,.section-header,.contact-info,.form-card-wrapper').forEach(function (el) { el.style.animationPlayState = 'paused'; ao.observe(el); });
+        document.querySelectorAll('.section-heading,.image-col,.text-col,.section-head,.cta-block,.section-header,.contact-info,.form-card-wrapper,.stats-grid').forEach(function (el) { el.style.animationPlayState = 'paused'; ao.observe(el); });
       }
 
       /* ACCORDION */
       window.toggleAcc = function (btn) { var acc = btn.nextElementSibling; var open = btn.classList.toggle('open'); acc.style.maxHeight = open ? acc.scrollHeight + 'px' : '0'; acc.classList.toggle('open', open); if (btn.lastChild) btn.lastChild.textContent = open ? ' Hide Subjects' : ' View Subjects'; };
+
+      /* STATS COUNTER */
+      (function () {
+        var counters = document.querySelectorAll('.stat-number[data-target]');
+        if (!counters.length) return;
+        var animated = false;
+        function animateCounters() {
+          counters.forEach(function (el) {
+            var target = parseFloat(el.getAttribute('data-target'));
+            var decimals = parseInt(el.getAttribute('data-decimals')) || 0;
+            var suffix = el.getAttribute('data-suffix') || '';
+            var duration = 1800;
+            var start = performance.now();
+            function step(now) {
+              var progress = Math.min((now - start) / duration, 1);
+              var eased = 1 - Math.pow(1 - progress, 3);
+              var current = eased * target;
+              el.textContent = current.toFixed(decimals) + suffix;
+              if (progress < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+          });
+        }
+        var statsEl = document.getElementById('stats');
+        if (statsEl && window.IntersectionObserver) {
+          var obs = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting && !animated) {
+                animated = true;
+                animateCounters();
+                obs.unobserve(e.target);
+              }
+            });
+          }, { threshold: 0.3 });
+          obs.observe(statsEl);
+        }
+      })();
 
       /* CERT CAROUSEL */
       (function () {
