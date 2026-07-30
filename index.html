@@ -2586,7 +2586,7 @@
     /* ── Scroll reveal ── */
     .reveal {
       opacity: 0;
-      transition: opacity .75s ease, transform .75s ease
+      transition: opacity .7s cubic-bezier(.22, 1, .36, 1), transform .7s cubic-bezier(.22, 1, .36, 1)
     }
 
     .reveal.from-left {
@@ -2604,6 +2604,60 @@
     .reveal.visible {
       opacity: 1 !important;
       transform: none !important
+    }
+
+    /* Prevent autoplay before intersection */
+    .section-heading,
+    .image-col,
+    .text-col,
+    .section-head,
+    .cta-block,
+    .section-header,
+    .contact-info,
+    .form-card-wrapper,
+    .stats-grid,
+    .footer-main,
+    .footer-bottom {
+      animation-play-state: paused;
+    }
+
+    /* Subtle entry for default reveal blocks */
+    .reveal:not(.from-left):not(.from-right):not(.from-node) {
+      transform: translateY(18px);
+    }
+
+    .scroll-animated-in {
+      animation-play-state: running !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html:focus-within {
+        scroll-behavior: auto;
+      }
+
+      .reveal,
+      .reveal.visible {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+
+      .section-heading,
+      .image-col,
+      .text-col,
+      .section-head,
+      .cta-block,
+      .section-header,
+      .contact-info,
+      .form-card-wrapper,
+      .stats-grid,
+      .footer-main,
+      .footer-bottom {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        animation-play-state: running !important;
+      }
     }
 
     /* ── Keyframes ── */
@@ -6396,6 +6450,115 @@
         visibility: hidden !important;
       }
     }
+
+    /* ══ Global Micro-Interactions Layer ══ */
+    :root {
+      --micro-ease: cubic-bezier(.22, 1, .36, 1);
+      --micro-fast: .2s;
+      --micro-mid: .32s;
+      --focus-ring: 0 0 0 2px rgba(124, 111, 255, .45), 0 0 0 6px rgba(124, 111, 255, .14);
+    }
+
+    section {
+      transition: opacity .45s var(--micro-ease), transform .45s var(--micro-ease);
+    }
+
+    a,
+    button,
+    .btn,
+    .filter-btn,
+    .project-btn,
+    .expand-btn {
+      transition: color var(--micro-fast) ease, background-color var(--micro-fast) ease, border-color var(--micro-fast) ease, transform var(--micro-fast) var(--micro-ease), box-shadow var(--micro-mid) ease;
+    }
+
+    a:hover,
+    button:hover,
+    .btn:hover,
+    .filter-btn:hover,
+    .project-btn:hover,
+    .expand-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .tl-card,
+    .card,
+    .focus-card,
+    .card-wrap,
+    .stat-card,
+    .contact-info,
+    .form-card-wrapper {
+      transition: transform var(--micro-mid) var(--micro-ease), box-shadow var(--micro-mid) ease, border-color var(--micro-mid) ease, background-color var(--micro-mid) ease;
+      will-change: transform;
+    }
+
+    .tl-card:hover,
+    .card:hover,
+    .focus-card:hover,
+    .card-wrap:hover,
+    .stat-card:hover,
+    .contact-info:hover,
+    .form-card-wrapper:hover {
+      transform: translateY(-4px);
+    }
+
+    input,
+    textarea,
+    select {
+      transition: border-color var(--micro-fast) ease, box-shadow var(--micro-fast) ease, background-color var(--micro-fast) ease;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    .btn:focus-visible,
+    .filter-btn:focus-visible,
+    .project-btn:focus-visible,
+    .expand-btn:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      a,
+      button,
+      .btn,
+      .filter-btn,
+      .project-btn,
+      .expand-btn,
+      .tl-card,
+      .card,
+      .focus-card,
+      .card-wrap,
+      .stat-card,
+      .contact-info,
+      .form-card-wrapper,
+      input,
+      textarea,
+      select,
+      section {
+        transition: none !important;
+      }
+
+      a:hover,
+      button:hover,
+      .btn:hover,
+      .filter-btn:hover,
+      .project-btn:hover,
+      .expand-btn:hover,
+      .tl-card:hover,
+      .card:hover,
+      .focus-card:hover,
+      .card-wrap:hover,
+      .stat-card:hover,
+      .contact-info:hover,
+      .form-card-wrapper:hover {
+        transform: none !important;
+      }
+    }
   </style>
 </head>
 
@@ -7956,11 +8119,35 @@
       }
 
       /* SCROLL REVEAL */
-      if (window.IntersectionObserver) {
-        var ro = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } }); }, { threshold: .1 });
-        document.querySelectorAll('.reveal').forEach(function (el) { ro.observe(el); });
-        var ao = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.style.animationPlayState = 'running'; ao.unobserve(e.target); } }); }, { threshold: .08 });
-        document.querySelectorAll('.section-heading,.image-col,.text-col,.section-head,.cta-block,.section-header,.contact-info,.form-card-wrapper,.stats-grid').forEach(function (el) { el.style.animationPlayState = 'paused'; ao.observe(el); });
+      var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var revealEls = document.querySelectorAll('.reveal');
+      var animatedEls = document.querySelectorAll('.section-heading,.image-col,.text-col,.section-head,.cta-block,.section-header,.contact-info,.form-card-wrapper,.stats-grid,.footer-main,.footer-bottom');
+      if (reduceMotion) {
+        revealEls.forEach(function (el) { el.classList.add('visible'); });
+        animatedEls.forEach(function (el) { el.classList.add('scroll-animated-in'); });
+      } else if (window.IntersectionObserver) {
+        var ro = new IntersectionObserver(function (es) {
+          es.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.classList.add('visible');
+              ro.unobserve(e.target);
+            }
+          });
+        }, { threshold: .12, rootMargin: '0px 0px -8% 0px' });
+        revealEls.forEach(function (el) { ro.observe(el); });
+
+        var ao = new IntersectionObserver(function (es) {
+          es.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.classList.add('scroll-animated-in');
+              ao.unobserve(e.target);
+            }
+          });
+        }, { threshold: .08, rootMargin: '0px 0px -6% 0px' });
+        animatedEls.forEach(function (el) { ao.observe(el); });
+      } else {
+        revealEls.forEach(function (el) { el.classList.add('visible'); });
+        animatedEls.forEach(function (el) { el.classList.add('scroll-animated-in'); });
       }
 
       /* ACCORDION */
@@ -8111,8 +8298,7 @@
       var btt = document.getElementById('backToTop');
       if (btt) window.addEventListener('scroll', function () { btt.classList.toggle('visible', window.scrollY > 200); }, { passive: true });
 
-      /* FOOTER REVEAL */
-      if (window.IntersectionObserver) { var fo = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.style.animationPlayState = 'running'; fo.unobserve(e.target); } }); }, { threshold: .05 }); document.querySelectorAll('.footer-main,.footer-bottom').forEach(function (el) { el.style.animationPlayState = 'paused'; fo.observe(el); }); }
+      /* FOOTER REVEAL handled in SCROLL REVEAL */
 
     })();
   </script>
