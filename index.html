@@ -2660,6 +2660,123 @@
       }
     }
 
+    /* ══ Realistic Visual Tone (no content changes) ══ */
+    body {
+      cursor: auto !important;
+    }
+
+    #cursor-orb,
+    #cursor-trail {
+      display: none !important;
+    }
+
+    #grain {
+      opacity: .018 !important;
+    }
+
+    .blob {
+      opacity: .07 !important;
+      filter: blur(110px) !important;
+    }
+
+    .blob-1,
+    .blob-2,
+    .blob-3 {
+      animation-duration: 30s !important;
+    }
+
+    .navbar {
+      backdrop-filter: blur(7px) saturate(105%) !important;
+      background: rgba(6, 10, 24, .78) !important;
+      box-shadow: 0 8px 24px rgba(4, 8, 20, .28) !important;
+    }
+
+    .section-label,
+    .section-eyebrow,
+    .chip,
+    .tag,
+    .tech-tag {
+      letter-spacing: .045em !important;
+    }
+
+    .section-subtitle,
+    .section-sub,
+    .card-desc,
+    .subj-desc {
+      color: rgba(222, 226, 239, .84) !important;
+    }
+
+    .btn,
+    .project-btn,
+    .filter-btn,
+    .expand-btn {
+      box-shadow: none !important;
+    }
+
+    .btn:hover,
+    .project-btn:hover,
+    .filter-btn:hover,
+    .expand-btn:hover {
+      transform: translateY(-1px) !important;
+      box-shadow: 0 8px 20px rgba(12, 18, 40, .22) !important;
+    }
+
+    .card,
+    .focus-card,
+    .card-wrap,
+    .tl-card,
+    .stat-card,
+    .contact-info,
+    .form-card-wrapper {
+      border-color: rgba(133, 146, 179, .22) !important;
+      box-shadow: 0 8px 22px rgba(4, 8, 20, .2) !important;
+    }
+
+    .card:hover,
+    .focus-card:hover,
+    .card-wrap:hover,
+    .tl-card:hover,
+    .stat-card:hover,
+    .contact-info:hover,
+    .form-card-wrapper:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 12px 26px rgba(5, 10, 24, .24) !important;
+      border-color: rgba(149, 160, 189, .28) !important;
+    }
+
+    .card::before,
+    .card::after,
+    .focus-card::before,
+    .focus-card::after,
+    .card-inner::before,
+    .stat-card::before,
+    .tl-card::before {
+      opacity: .38 !important;
+    }
+
+    .nav-links a:hover,
+    .mobile-menu a:hover {
+      background: rgba(124, 111, 255, .05) !important;
+    }
+
+    input,
+    textarea,
+    select {
+      background: rgba(12, 18, 38, .84) !important;
+      border-color: rgba(132, 145, 176, .24) !important;
+    }
+
+    input:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible {
+      box-shadow: 0 0 0 2px rgba(124, 111, 255, .28) !important;
+      border-color: rgba(136, 120, 255, .56) !important;
+    }
+
+    .reveal {
+      transition-duration: .6s !important;
+    }
+
     /* ── Keyframes ── */
     @keyframes rise {
       from {
@@ -6558,6 +6675,123 @@
       .form-card-wrapper:hover {
         transform: none !important;
       }
+    }
+
+    /* ══ Realistic Visual Tone (final overrides) ══ */
+    body {
+      cursor: auto !important;
+    }
+
+    #cursor-orb,
+    #cursor-trail {
+      display: none !important;
+    }
+
+    #grain {
+      opacity: .018 !important;
+    }
+
+    .blob {
+      opacity: .07 !important;
+      filter: blur(110px) !important;
+    }
+
+    .blob-1,
+    .blob-2,
+    .blob-3 {
+      animation-duration: 30s !important;
+    }
+
+    .navbar {
+      backdrop-filter: blur(7px) saturate(105%) !important;
+      background: rgba(6, 10, 24, .78) !important;
+      box-shadow: 0 8px 24px rgba(4, 8, 20, .28) !important;
+    }
+
+    .section-label,
+    .section-eyebrow,
+    .chip,
+    .tag,
+    .tech-tag {
+      letter-spacing: .045em !important;
+    }
+
+    .section-subtitle,
+    .section-sub,
+    .card-desc,
+    .subj-desc {
+      color: rgba(222, 226, 239, .84) !important;
+    }
+
+    .btn,
+    .project-btn,
+    .filter-btn,
+    .expand-btn {
+      box-shadow: none !important;
+    }
+
+    .btn:hover,
+    .project-btn:hover,
+    .filter-btn:hover,
+    .expand-btn:hover {
+      transform: translateY(-1px) !important;
+      box-shadow: 0 8px 20px rgba(12, 18, 40, .22) !important;
+    }
+
+    .card,
+    .focus-card,
+    .card-wrap,
+    .tl-card,
+    .stat-card,
+    .contact-info,
+    .form-card-wrapper {
+      border-color: rgba(133, 146, 179, .22) !important;
+      box-shadow: 0 8px 22px rgba(4, 8, 20, .2) !important;
+    }
+
+    .card:hover,
+    .focus-card:hover,
+    .card-wrap:hover,
+    .tl-card:hover,
+    .stat-card:hover,
+    .contact-info:hover,
+    .form-card-wrapper:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 12px 26px rgba(5, 10, 24, .24) !important;
+      border-color: rgba(149, 160, 189, .28) !important;
+    }
+
+    .card::before,
+    .card::after,
+    .focus-card::before,
+    .focus-card::after,
+    .card-inner::before,
+    .stat-card::before,
+    .tl-card::before {
+      opacity: .38 !important;
+    }
+
+    .nav-links a:hover,
+    .mobile-menu a:hover {
+      background: rgba(124, 111, 255, .05) !important;
+    }
+
+    input,
+    textarea,
+    select {
+      background: rgba(12, 18, 38, .84) !important;
+      border-color: rgba(132, 145, 176, .24) !important;
+    }
+
+    input:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible {
+      box-shadow: 0 0 0 2px rgba(124, 111, 255, .28) !important;
+      border-color: rgba(136, 120, 255, .56) !important;
+    }
+
+    .reveal {
+      transition-duration: .6s !important;
     }
   </style>
 </head>
